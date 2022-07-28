@@ -8,11 +8,11 @@ namespace String_Calculator
         static void Main(string[] args)
         {
             StringCalculator stringCalculator = new StringCalculator();
-            int test = stringCalculator.Add("6//7") ;
-            //int x = stringCalculator.
-            
-            Console.WriteLine(test);
-            Console.ReadLine();
+            Console.Write("Enter value: ");
+            string userNumber = Console.ReadLine();
+            int result = stringCalculator.Add(userNumber);
+            Console.WriteLine("Sum{0}", result);
+            Console.Read();
         }
     }
 }

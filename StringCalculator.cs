@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-//using NUnit;
 using NUnit.Framework;
 using Assert = NUnit.Framework.Assert;
 
@@ -14,7 +13,7 @@ namespace String_Calculator
         //other delimitors can be added if required in future
        
         private const string seperator = "//";
-        private List<string> Delimitors = new List<string>() { ",", "\n",";","||" };
+        private readonly List<string> Delimitors = new List<string>() { ",", "\n",";","||" };
 
         public int Add(string numbers)
         {
@@ -36,7 +35,7 @@ namespace String_Calculator
             string[] customSeperators = { seperator, "[", "]" };
             var customSeperator = numbers.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries).First();
 
-            numbers = numbers.Substring(customSeperator.Length, numbers.Length - customSeperator.Length);
+            numbers = numbers[customSeperator.Length..];
             var allCustomSeperators = customSeperator.Split(customSeperators, StringSplitOptions.RemoveEmptyEntries);
 
             foreach (var sep in allCustomSeperators)
@@ -57,7 +56,7 @@ namespace String_Calculator
                 {
                     throw new ApplicationException(string.Format("Negatives not allowed:{0}" , number));
                 }
-                //assumption made that the numbers being added will not surpass the max va=lue an int can hold
+                //assumption made that the numbers being added will not surpass the max value an int can hold
                 if (number <= int.MaxValue)
                 {
                     numberOnly.Add(number);
@@ -74,7 +73,7 @@ namespace String_Calculator
     {
         StringCalculator calc;
         [SetUp]
-        public void setup()
+        public void Setup()
         {
             calc = new StringCalculator();
         }
@@ -133,14 +132,14 @@ namespace String_Calculator
         [ExpectedException(typeof(ApplicationException))]
         public void ShouldShowExceptionOnNegativeNumber()
         {
-            var result = calc.Add("-1");
+            _ = calc.Add("-1");
         }
 
         [Test]
         [ExpectedException(typeof(ApplicationException))]
         public void ShouldShowAllNegatives()
         {
-            var result = calc.Add("-1,-2");
+            _ = calc.Add("-1,-2");
         }
         
         [Test]
